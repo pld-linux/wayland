@@ -5,12 +5,12 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	0.85.0
+Version:	0.95.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	fe3fdfdcc0b20235a113e0e34a665b1c
+# Source0-md5:	23d6bcd500db9d1bb13e9b89722331dc
 URL:		http://wayland.freedesktop.org/
 BuildRequires:	expat-devel
 BuildRequires:	libffi-devel
@@ -77,6 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libwayland-*.la
+# packaged as %doc in -devel
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/wayland
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -86,19 +88,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README TODO
+%doc COPYING README TODO
 %attr(755,root,root) %{_libdir}/libwayland-client.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libwayland-client.so.0
+%attr(755,root,root) %{_libdir}/libwayland-cursor.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libwayland-cursor.so.0
 %attr(755,root,root) %{_libdir}/libwayland-server.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libwayland-server.so.0
 
 %files devel
 %defattr(644,root,root,755)
+%doc protocol/wayland*.{css,html}
 %attr(755,root,root) %{_bindir}/wayland-scanner
 %attr(755,root,root) %{_libdir}/libwayland-client.so
+%attr(755,root,root) %{_libdir}/libwayland-cursor.so
 %attr(755,root,root) %{_libdir}/libwayland-server.so
 %{_includedir}/wayland-*.h
 %{_pkgconfigdir}/wayland-client.pc
+%{_pkgconfigdir}/wayland-cursor.pc
 %{_pkgconfigdir}/wayland-server.pc
 %{_aclocaldir}/wayland-scanner.m4
 %{_aclocaldir}/wayland-scanner.mk
@@ -107,5 +114,6 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libwayland-client.a
+%{_libdir}/libwayland-cursor.a
 %{_libdir}/libwayland-server.a
 %endif
