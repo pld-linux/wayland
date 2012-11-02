@@ -1,21 +1,29 @@
 #
 # Conditional build:
+%bcond_without	apidocs		# don't build API documentation
 %bcond_without	static_libs	# don't build static libraries
 #
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	0.95.0
+Version:	1.0.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	23d6bcd500db9d1bb13e9b89722331dc
+# Source0-md5:	d7449ebe3b62c8a956d77a52a19c73a6
+Patch0:		%{name}-publican.patch
 URL:		http://wayland.freedesktop.org/
+BuildRequires:	autoconf >= 2.64
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	libffi-devel
+BuildRequires:	libtool >= 2:2.2
+BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
 BuildRequires:	pkgconfig(libffi)
+%{?with_apidocs:BuildRequires:	publican >= 3}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -60,10 +68,31 @@ Static Wayland libraries.
 %description static -l pl.UTF-8
 Statyczne biblioteki Wayland.
 
+%package apidocs
+Summary:	Wayland API and protocol documentation
+Summary(pl.UTF-8):	Dokumentacja API biblioteki oraz protokołu Wayland
+Group:		Documentation
+
+%description apidocs
+Wayland API and protocol documentation.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki oraz protokołu Wayland.
+
 %prep
 %setup -q
 
+# this file is required by publican 3.0; publican patch adds it in en-US dir
+test ! -f doc/Wayland/en_US/Revision_History.xml
+
+%patch0 -p1
+
 %build
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static}
@@ -109,6 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/wayland-server.pc
 %{_aclocaldir}/wayland-scanner.m4
 %{_aclocaldir}/wayland-scanner.mk
+%{_mandir}/man3/wl_display_connect.3*
+%{_mandir}/man3/wl_display_connect_to_fd*
 
 %if %{with static_libs}
 %files static
@@ -116,4 +147,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libwayland-client.a
 %{_libdir}/libwayland-cursor.a
 %{_libdir}/libwayland-server.a
+%endif
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%doc doc/Wayland/Wayland/en-US/html/*
 %endif
