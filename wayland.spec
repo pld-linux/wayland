@@ -6,14 +6,13 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.0.4
+Version:	1.0.5
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	1cdc3952001d85629e68b10a9e95a13c
+# Source0-md5:	e2e9ebfbaf9b013471c620b99938d764
 Patch0:		%{name}-publican.patch
-Patch1:		%{name}-missing.patch
 URL:		http://wayland.freedesktop.org/
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.11
@@ -88,7 +87,6 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 test ! -f doc/Wayland/en_US/Revision_History.xml
 
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
