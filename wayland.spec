@@ -13,6 +13,7 @@ Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
 # Source0-md5:	936a2590aea69fa3c0cf234d54b9137c
 Patch0:		%{name}-publican.patch
+Patch1:		%{name}-man.patch
 URL:		http://wayland.freedesktop.org/
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.11
@@ -87,6 +88,10 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 test ! -f doc/Wayland/en_US/Revision_History.xml
 
 %patch0 -p1
+%patch1 -p1
+
+# force regeneration (.so link is broken, double man3/)
+%{__rm} doc/man/*.3
 
 %build
 %{__libtoolize}
@@ -97,6 +102,7 @@ test ! -f doc/Wayland/en_US/Revision_History.xml
 %configure \
 	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static}
+
 %{__make}
 
 %install
