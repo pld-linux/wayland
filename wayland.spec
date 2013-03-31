@@ -113,6 +113,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libwayland-*.la
+%if %{with apidocs}
+# packaged as %doc in -devel
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/wayland
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
