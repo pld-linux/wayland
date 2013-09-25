@@ -1,40 +1,12 @@
---- wayland-1.0.1/doc/Wayland/Makefile.am.orig	2012-11-24 10:19:59.220881103 +0100
-+++ wayland-1.0.1/doc/Wayland/Makefile.am	2012-11-24 10:20:45.210880145 +0100
-@@ -62,7 +62,7 @@
+Build only HTML; PDF requires patched qt4.
+--- wayland-1.2.1/doc/publican/Makefile.am.orig	2013-07-29 19:38:05.000000000 +0200
++++ wayland-1.2.1/doc/publican/Makefile.am	2013-09-25 18:22:49.347339417 +0200
+@@ -96,7 +96,7 @@
  	$(AM_V_GEN)$(PUBLICAN) rename --name Wayland \
  		--version "$(WAYLAND_VERSION_MAJOR).$(WAYLAND_VERSION_MINOR)" \
  		--config $(builddir)/publican-copy.cfg
--	$(AM_V_GEN)$(PUBLICAN) build --quiet --lang en-US --format html,pdf \
+-	$(AM_V_GEN)$(PUBLICAN) build --quiet --langs en-US --formats html,pdf \
 +	$(AM_V_GEN)$(PUBLICAN) build --quiet --langs en-US --formats html \
  		--config $(builddir)/publican-copy.cfg
  	@touch Wayland
  
---- wayland-1.0.0/doc/Wayland/en-US/Revision_History.xml.orig	1970-01-01 01:00:00.000000000 +0100
-+++ wayland-1.0.0/doc/Wayland/en-US/Revision_History.xml	2012-11-02 17:51:40.432494222 +0100
-@@ -0,0 +1,26 @@
-+<?xml version='1.0' encoding='utf-8' ?>
-+<!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-+<!ENTITY % BOOK_ENTITIES SYSTEM "Wayland.ent">
-+%BOOK_ENTITIES;
-+]>
-+<appendix id="appe-Wayland-Revision_History">
-+	<title>Revision History</title>
-+	<simpara>
-+		<revhistory>
-+			<revision>
-+				<revnumber>0-0</revnumber>
-+				<date>Thu Feb 23 2012</date>
-+				<author>
-+					<firstname>Dude</firstname>
-+					<surname>McPants</surname>
-+					<email>Dude.McPants@example.com</email>
-+				</author>
-+				<revdescription>
-+					<simplelist>
-+						<member>Initial creation of book by publican</member>
-+					</simplelist>
-+				</revdescription>
-+			</revision>
-+		</revhistory>
-+	</simpara>
-+</appendix>

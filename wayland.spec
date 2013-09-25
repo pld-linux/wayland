@@ -6,12 +6,12 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.0.6
-Release:	3
+Version:	1.2.1
+Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	936a2590aea69fa3c0cf234d54b9137c
+# Source0-md5:	dc75d060f23c0ef17ae95307cd525240
 Patch0:		%{name}-publican.patch
 Patch1:		%{name}-man.patch
 URL:		http://wayland.freedesktop.org/
@@ -83,10 +83,6 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 
 %prep
 %setup -q
-
-# this file is required by publican 3.0; publican patch adds it in en-US dir
-test ! -f doc/Wayland/en_US/Revision_History.xml
-
 %patch0 -p1
 %patch1 -p1
 
@@ -141,13 +137,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libwayland-cursor.so
 %attr(755,root,root) %{_libdir}/libwayland-server.so
 %{_includedir}/wayland-*.h
+%dir %{_datadir}/wayland
+%{_datadir}/wayland/wayland-scanner.mk
 %{_pkgconfigdir}/wayland-client.pc
 %{_pkgconfigdir}/wayland-cursor.pc
 %{_pkgconfigdir}/wayland-server.pc
+%{_npkgconfigdir}/wayland-scanner.pc
 %{_aclocaldir}/wayland-scanner.m4
-%{_aclocaldir}/wayland-scanner.mk
-%{_mandir}/man3/wl_display_connect.3*
-%{_mandir}/man3/wl_display_connect_to_fd*
+%{_mandir}/man3/wl_*.3*
 
 %if %{with static_libs}
 %files static
@@ -160,5 +157,5 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%doc doc/Wayland/Wayland/en-US/html/*
+%doc doc/publican/Wayland/en-US/html/*
 %endif
