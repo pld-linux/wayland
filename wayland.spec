@@ -6,12 +6,12 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.2.1
+Version:	1.3.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	dc75d060f23c0ef17ae95307cd525240
+# Source0-md5:	d16d27081e0871de82d08840c2f133fc
 Patch0:		%{name}-publican.patch
 Patch1:		%{name}-man.patch
 URL:		http://wayland.freedesktop.org/
@@ -107,6 +107,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# referenced by some installed wl_*.3 man pages
+cp -p doc/doxygen/man/man3/wayland-util.h.3 $RPM_BUILD_ROOT%{_mandir}/man3
+
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libwayland-*.la
 %if %{with apidocs}
@@ -138,12 +141,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libwayland-server.so
 %{_includedir}/wayland-*.h
 %dir %{_datadir}/wayland
+%{_datadir}/wayland/wayland.xml
 %{_datadir}/wayland/wayland-scanner.mk
 %{_pkgconfigdir}/wayland-client.pc
 %{_pkgconfigdir}/wayland-cursor.pc
 %{_pkgconfigdir}/wayland-server.pc
 %{_npkgconfigdir}/wayland-scanner.pc
 %{_aclocaldir}/wayland-scanner.m4
+%{_mandir}/man3/wayland-util.h.3*
 %{_mandir}/man3/wl_*.3*
 
 %if %{with static_libs}
