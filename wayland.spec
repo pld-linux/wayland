@@ -6,12 +6,12 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.4.0
+Version:	1.5.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	332cf9191837be12638a29265ed7cf46
+# Source0-md5:	1d882776b27329b91d2d500b6d66dd1d
 Patch0:		%{name}-publican.patch
 Patch1:		%{name}-man.patch
 URL:		http://wayland.freedesktop.org/
@@ -146,8 +146,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/wayland/wayland-scanner.mk
 %{_pkgconfigdir}/wayland-client.pc
 %{_pkgconfigdir}/wayland-cursor.pc
+%{_pkgconfigdir}/wayland-scanner.pc
 %{_pkgconfigdir}/wayland-server.pc
-%{_npkgconfigdir}/wayland-scanner.pc
 %{_aclocaldir}/wayland-scanner.m4
 %{_mandir}/man3/wayland-util.h.3*
 %{_mandir}/man3/wl_*.3*
