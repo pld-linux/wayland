@@ -6,12 +6,12 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.5.0
+Version:	1.6.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	1d882776b27329b91d2d500b6d66dd1d
+# Source0-md5:	d34c141c975084e4fb668e77b38f840e
 Patch0:		%{name}-publican.patch
 Patch1:		%{name}-man.patch
 URL:		http://wayland.freedesktop.org/
@@ -24,7 +24,6 @@ BuildRequires:	libffi-devel
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
-BuildRequires:	pkgconfig(libffi)
 %{?with_apidocs:BuildRequires:	publican >= 3}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
