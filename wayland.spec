@@ -19,7 +19,7 @@ BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-style-xsl
 BuildRequires:	doxygen
-BuildRequires:	expat-devel
+BuildRequires:	expat-devel >= 1.95
 BuildRequires:	libffi-devel
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libxslt-progs
