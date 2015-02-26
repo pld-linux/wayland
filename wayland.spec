@@ -6,25 +6,27 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.6.1
-Release:	2
+Version:	1.7.0
+Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	feaa0754fe49931a3fe5aa98f7d1e0e9
-Patch0:		%{name}-publican.patch
+# Source0-md5:	6f46ac47c3a18c6503a40b5fa58a1066
 Patch1:		%{name}-man.patch
 URL:		http://wayland.freedesktop.org/
 BuildRequires:	autoconf >= 2.64
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	docbook-style-xsl
-BuildRequires:	doxygen
 BuildRequires:	expat-devel >= 1.95
-BuildRequires:	libffi-devel
+BuildRequires:	libffi-devel >= 3
 BuildRequires:	libtool >= 2:2.2
-BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
-%{?with_apidocs:BuildRequires:	publican >= 3}
+%if %{with apidocs}
+BuildRequires:	docbook-style-xsl
+BuildRequires:	doxygen >= 1.6.0
+BuildRequires:	graphviz >= 2.26.0
+BuildRequires:	libxslt-progs
+BuildRequires:	xmlto
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -82,7 +84,6 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 
 # force regeneration (.so link is broken, double man3/)
@@ -97,6 +98,7 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 %{__autoheader}
 %{__automake}
 %configure \
+	%{!?with_apidocs:--disable-documentation} \
 	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static}
 
@@ -150,8 +152,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/wayland-scanner.pc
 %{_pkgconfigdir}/wayland-server.pc
 %{_aclocaldir}/wayland-scanner.m4
+%if %{with apidocs}
 %{_mandir}/man3/wayland-util.h.3*
 %{_mandir}/man3/wl_*.3*
+%endif
 
 %if %{with static_libs}
 %files static
