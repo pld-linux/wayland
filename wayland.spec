@@ -2,12 +2,12 @@
 # Conditional build:
 %bcond_without	apidocs		# don't build API documentation
 %bcond_without	static_libs	# don't build static libraries
-#
+
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
 Version:	1.8.1
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	http://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
@@ -75,6 +75,9 @@ Statyczne biblioteki Wayland.
 Summary:	Wayland API and protocol documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki oraz protokołu Wayland
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 Wayland API and protocol documentation.
