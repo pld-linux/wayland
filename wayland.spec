@@ -6,12 +6,12 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.10.0
+Version:	1.11.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	e7751c38807c231afaba9d6b68f2a2b7
+# Source0-md5:	fccf680be066e234729d5b69e0bd0fa9
 Patch1:		%{name}-man.patch
 URL:		https://wayland.freedesktop.org/
 BuildRequires:	autoconf >= 2.64
@@ -19,6 +19,8 @@ BuildRequires:	automake >= 1:1.11
 BuildRequires:	expat-devel >= 1.95
 BuildRequires:	libffi-devel >= 3
 BuildRequires:	libtool >= 2:2.2
+# for DTD valudation
+BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
 %if %{with apidocs}
 BuildRequires:	docbook-style-xsl
@@ -112,7 +114,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # referenced by some installed wl_*.3 man pages
-cp -p doc/doxygen/man/man3/wayland-util.h.3 $RPM_BUILD_ROOT%{_mandir}/man3
+cp -p doc/doxygen/man/man3/wayland-{client-core,server,server-core,util}.h.3 \
+	doc/doxygen/man/man3/wayland-{client,server,shm,util}.c.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libwayland-*.la
@@ -154,7 +157,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/wayland-server.pc
 %{_aclocaldir}/wayland-scanner.m4
 %if %{with apidocs}
-%{_mandir}/man3/wayland-util.h.3*
+%{_mandir}/man3/wayland-*.c.3*
+%{_mandir}/man3/wayland-*.h.3*
 %{_mandir}/man3/wl_*.3*
 %endif
 
