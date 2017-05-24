@@ -6,12 +6,13 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.12.0
-Release:	2
+Version:	1.13.0
+Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	ee615e2d1e205eec48b02f069327eb96
+# Source0-md5:	cae152ed956da6de53f9727bc1c45039
+Patch0:		%{name}-missing.patch
 Patch1:		%{name}-man.patch
 URL:		https://wayland.freedesktop.org/
 BuildRequires:	autoconf >= 2.64
@@ -89,6 +90,7 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 
 # force regeneration (.so link is broken, double man3/)
@@ -115,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with apidocs}
 # referenced by some installed wl_*.3 man pages
-cp -p doc/doxygen/man/man3/wayland-{client-core,server,server-core,util}.h.3 \
+cp -p doc/doxygen/man/man3/wayland-{client,client-core,server,server-core,util}.h.3 \
 	doc/doxygen/man/man3/wayland-{client,server,shm,util}.c.3 $RPM_BUILD_ROOT%{_mandir}/man3
 %endif
 
