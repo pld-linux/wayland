@@ -6,12 +6,12 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.13.0
+Version:	1.14.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	cae152ed956da6de53f9727bc1c45039
+# Source0-md5:	0235f6075c32c3be61cff94fa0b9f108
 Patch0:		%{name}-missing.patch
 Patch1:		%{name}-man.patch
 URL:		https://wayland.freedesktop.org/
@@ -24,7 +24,7 @@ BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
 %if %{with apidocs}
-BuildRequires:	docbook-style-xsl
+BuildRequires:	docbook-style-xsl-nons
 BuildRequires:	doxygen >= 1.6.0
 BuildRequires:	graphviz >= 2.26.0
 BuildRequires:	libxslt-progs
