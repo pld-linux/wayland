@@ -9,7 +9,7 @@ Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
 Version:	1.15.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
@@ -209,6 +209,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/wayland-*.h.3*
 %{_mandir}/man3/wl_*.3*
 %endif
+# NOTE: temporarily here because they're used but not included in Mesa 18.1.x
+# TODO: move to -egl-devel after transition to Mesa 18.2.x
+%{_includedir}/wayland-egl.h
+%{_includedir}/wayland-egl-core.h
 
 %if %{with static_libs}
 %files static
@@ -232,7 +236,7 @@ rm -rf $RPM_BUILD_ROOT
 %files egl-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libwayland-egl.so
-%{_includedir}/wayland-egl*.h
+%{_includedir}/wayland-egl-backend.h
 %{_pkgconfigdir}/wayland-egl.pc
 %{_pkgconfigdir}/wayland-egl-backend.pc
 
