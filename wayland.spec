@@ -3,15 +3,17 @@
 %bcond_without	apidocs		# don't build API documentation
 %bcond_without	static_libs	# don't build static libraries
 
+# see wayland-egl.pc
+%define	wayland_egl_ver	18.1.0
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.14.0
+Version:	1.15.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	0235f6075c32c3be61cff94fa0b9f108
+# Source0-md5:	b7393c17fdce9a8d383edab656c92fd2
 Patch0:		%{name}-missing.patch
 Patch1:		%{name}-man.patch
 URL:		https://wayland.freedesktop.org/
@@ -74,6 +76,44 @@ Static Wayland libraries.
 %description static -l pl.UTF-8
 Statyczne biblioteki Wayland.
 
+%package egl
+Summary:	Wayland EGL library
+Summary(pl.UTF-8):	Biblioteka Wayland EGL
+Group:		Libraries
+Obsoletes:	Mesa-libwayland-egl < %{wayland_egl_ver}
+
+%description egl
+Wayland EGL library.
+
+%description egl -l pl.UTF-8
+Biblioteka Wayland EGL.
+
+%package egl-devel
+Summary:	Header files for Wayland EGL library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Wayland EGL
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-egl = %{version}-%{release}
+Obsoletes:	Mesa-libwayland-egl-devel < %{wayland_egl_ver}
+
+%description egl-devel
+Header files for Wayland EGL library.
+
+%description egl-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki Wayland EGL.
+
+%package egl-static
+Summary:	Static Wayland EGL library
+Summary(pl.UTF-8):	Statyczna biblioteka Wayland EGL
+Group:		Development/Libraries
+Requires:	%{name}-egl-devel = %{version}-%{release}
+
+%description egl-static
+Static Wayland EGL library.
+
+%description egl-static -l pl.UTF-8
+Statyczna biblioteka Wayland EGL.
+
 %package apidocs
 Summary:	Wayland API and protocol documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki oraz protokołu Wayland
@@ -105,7 +145,7 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 %configure \
 	%{!?with_apidocs:--disable-documentation} \
 	--disable-silent-rules \
-	%{!?with_static_libs:--disable-static}
+	%{?with_static_libs:--enable-static}
 
 %{__make}
 
@@ -150,7 +190,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libwayland-client.so
 %attr(755,root,root) %{_libdir}/libwayland-cursor.so
 %attr(755,root,root) %{_libdir}/libwayland-server.so
-%{_includedir}/wayland-*.h
+%{_includedir}/wayland-client*.h
+%{_includedir}/wayland-cursor.h
+%{_includedir}/wayland-server*.h
+%{_includedir}/wayland-util.h
+%{_includedir}/wayland-version.h
 %dir %{_datadir}/wayland
 %{_datadir}/wayland/wayland.dtd
 %{_datadir}/wayland/wayland.xml
@@ -178,4 +222,22 @@ rm -rf $RPM_BUILD_ROOT
 %files apidocs
 %defattr(644,root,root,755)
 %doc doc/publican/Wayland/en-US/html/*
+%endif
+
+%files egl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libwayland-egl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libwayland-egl.so.1
+
+%files egl-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libwayland-egl.so
+%{_includedir}/wayland-egl*.h
+%{_pkgconfigdir}/wayland-egl.pc
+%{_pkgconfigdir}/wayland-egl-backend.pc
+
+%if %{with static_libs}
+%files egl-static
+%defattr(644,root,root,755)
+%{_libdir}/libwayland-egl.a
 %endif
