@@ -3,13 +3,11 @@
 %bcond_without	apidocs		# don't build API documentation
 %bcond_without	static_libs	# don't build static libraries
 
-# see wayland-egl.pc
-%define	wayland_egl_ver	18.1.0
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
 Version:	1.15.0
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
@@ -80,7 +78,7 @@ Statyczne biblioteki Wayland.
 Summary:	Wayland EGL library
 Summary(pl.UTF-8):	Biblioteka Wayland EGL
 Group:		Libraries
-Obsoletes:	Mesa-libwayland-egl < %{wayland_egl_ver}
+Obsoletes:	Mesa-libwayland-egl
 
 %description egl
 Wayland EGL library.
@@ -94,7 +92,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Wayland EGL
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-egl = %{version}-%{release}
-Obsoletes:	Mesa-libwayland-egl-devel < %{wayland_egl_ver}
+Obsoletes:	Mesa-libwayland-egl-devel
 
 %description egl-devel
 Header files for Wayland EGL library.
