@@ -1,9 +1,9 @@
---- wayland-1.0.6/doc/man/Makefile.am.orig	2013-02-14 20:47:25.000000000 +0100
-+++ wayland-1.0.6/doc/man/Makefile.am	2013-03-29 10:29:29.977545252 +0100
-@@ -31,7 +31,7 @@
+--- wayland-1.18.0/doc/man/Makefile.am.orig	2020-02-14 16:57:11.597516684 +0100
++++ wayland-1.18.0/doc/man/Makefile.am	2020-02-14 16:59:24.780128505 +0100
+@@ -30,7 +30,7 @@
  XSLTPROC_PROCESS_MAN = \
  	$(AM_V_GEN)$(MKDIR_P) $(dir $@) && \
- 	$(XSLTPROC) -o $@ $(XSLTPROC_FLAGS) $(MANPAGES_STYLESHEET) $< && \
+ 	$(XSLTPROC) -o $@ $(XSLTPROC_FLAGS) $(DOCS_STYLESHEET) $< && \
 -	$(SED) -i -e 's/^\.so \(.*\)\.\(.\)$$/\.so man\2\/\1\.\2/' $(MANPAGES_ALIASES)
 +	$(SED) -i -e 's/^\.so \([^/]*\)\.\(.\)$$/\.so man\2\/\1\.\2/' $(MANPAGES_ALIASES)
  
