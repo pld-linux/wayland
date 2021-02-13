@@ -26,7 +26,7 @@ BuildRequires:	docbook-style-xsl-nons
 BuildRequires:	doxygen >= 1.6.0
 BuildRequires:	graphviz >= 2.26.0
 BuildRequires:	libxslt-progs
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	xmlto
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -115,9 +115,7 @@ Statyczna biblioteka Wayland EGL.
 Summary:	Wayland API and protocol documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki oraz protokołu Wayland
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description apidocs
 Wayland API and protocol documentation.
