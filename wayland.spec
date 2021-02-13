@@ -6,29 +6,27 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.18.0
-Release:	3
+Version:	1.19.0
+Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://wayland.freedesktop.org/releases.html
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	23317697b6e3ff2e1ac8c5ba3ed57b65
-Patch0:		%{name}-missing.patch
-Patch1:		%{name}-man.patch
+# Source0-md5:	5d59ac3d8a8f4e42de2ceb8bb19dfca9
 URL:		https://wayland.freedesktop.org/
-BuildRequires:	autoconf >= 2.64
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	expat-devel >= 1.95
 BuildRequires:	libffi-devel >= 3
-BuildRequires:	libtool >= 2:2.2
 # for DTD valudation
 BuildRequires:	libxml2-devel >= 2.0
+BuildRequires:	meson >= 0.52.1
+BuildRequires:	ninja
 BuildRequires:	pkgconfig
 %if %{with apidocs}
 BuildRequires:	docbook-style-xsl-nons
 BuildRequires:	doxygen >= 1.6.0
 BuildRequires:	graphviz >= 2.26.0
 BuildRequires:	libxslt-progs
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	xmlto
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -129,39 +127,19 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-
-# force regeneration (.so link is broken, double man3/)
-%{__rm} doc/man/*.3
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	%{!?with_apidocs:--disable-documentation} \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static}
+%meson build \
+	%{!?with_apidocs:-Ddocumentation=false} \
+	%{!?with_static_libs:--default-library=shared}
 
-%{__make}
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
-%if %{with apidocs}
-# referenced by some installed wl_*.3 man pages
-cp -p doc/doxygen/man/man3/wayland-{client,client-core,server,server-core,util}.h.3 \
-	doc/doxygen/man/man3/wayland-{client,server,shm,util}.c.3 $RPM_BUILD_ROOT%{_mandir}/man3
-%endif
-
-# obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libwayland-*.la
 %if %{with apidocs}
 # packaged as %doc in -devel
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}/wayland
@@ -175,7 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING README TODO
+%doc COPYING CONTRIBUTING.md README
 %attr(755,root,root) %{_libdir}/libwayland-client.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libwayland-client.so.0
 %attr(755,root,root) %{_libdir}/libwayland-cursor.so.*.*.*
@@ -204,8 +182,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/wayland-server.pc
 %{_aclocaldir}/wayland-scanner.m4
 %if %{with apidocs}
-%{_mandir}/man3/wayland-*.c.3*
-%{_mandir}/man3/wayland-*.h.3*
 %{_mandir}/man3/wl_*.3*
 %endif
 # NOTE: temporarily here because they're used but not included in Mesa 18.1.x
@@ -224,7 +200,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%doc doc/publican/Wayland/en-US/html/*
+%doc build/doc/publican/html/* doc/publican/sources/{css,images}
 %endif
 
 %files egl
