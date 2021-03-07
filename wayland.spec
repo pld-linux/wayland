@@ -117,7 +117,7 @@ Statyczna biblioteka Wayland EGL.
 Summary:	Wayland API and protocol documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki oraz protokołu Wayland
 Group:		Documentation
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 Wayland API and protocol documentation.
