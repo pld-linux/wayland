@@ -26,6 +26,7 @@ BuildRequires:	docbook-style-xsl-nons
 BuildRequires:	doxygen >= 1.6.0
 BuildRequires:	graphviz >= 2.26.0
 BuildRequires:	libxslt-progs
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xmlto
