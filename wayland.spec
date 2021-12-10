@@ -6,13 +6,13 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.19.0
+Version:	1.20.0
 Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://wayland.freedesktop.org/releases.html
 Source0:	https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
-# Source0-md5:	5d59ac3d8a8f4e42de2ceb8bb19dfca9
+# Source0-md5:	5095264157bf0565b921ceaf9d698d98
 URL:		https://wayland.freedesktop.org/
 BuildRequires:	expat-devel >= 1.95
 BuildRequires:	libffi-devel >= 3
