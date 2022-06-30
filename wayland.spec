@@ -18,7 +18,7 @@ BuildRequires:	expat-devel >= 1.95
 BuildRequires:	libffi-devel >= 3
 # for DTD valudation
 BuildRequires:	libxml2-devel >= 2.0
-BuildRequires:	meson >= 0.52.1
+BuildRequires:	meson >= 0.56.0
 BuildRequires:	ninja
 BuildRequires:	pkgconfig
 %if %{with apidocs}
