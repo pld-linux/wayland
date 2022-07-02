@@ -7,7 +7,7 @@ Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
 Version:	1.21.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 #Source0Download: https://gitlab.freedesktop.org/wayland/wayland/-/releases/
@@ -151,6 +151,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
+
+%post	egl -p /sbin/ldconfig
+%postun	egl -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
