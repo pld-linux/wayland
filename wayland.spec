@@ -80,7 +80,7 @@ Statyczne biblioteki Wayland.
 Summary:	Wayland EGL library
 Summary(pl.UTF-8):	Biblioteka Wayland EGL
 Group:		Libraries
-Obsoletes:	Mesa-libwayland-egl
+Obsoletes:	Mesa-libwayland-egl < 18.2
 
 %description egl
 Wayland EGL library.
@@ -94,7 +94,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Wayland EGL
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-egl = %{version}-%{release}
-Obsoletes:	Mesa-libwayland-egl-devel
+Obsoletes:	Mesa-libwayland-egl-devel < 18.2
 
 %description egl-devel
 Header files for Wayland EGL library.
