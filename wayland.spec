@@ -14,6 +14,7 @@ Group:		Libraries
 Source0:	https://gitlab.freedesktop.org/wayland/wayland/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
 # Source0-md5:	f2653a2293bcd882d756c6a83d278903
 URL:		https://wayland.freedesktop.org/
+BuildRequires:	automake
 BuildRequires:	expat-devel >= 1.95
 BuildRequires:	libffi-devel >= 3
 # for DTD valudation
