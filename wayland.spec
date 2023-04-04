@@ -6,13 +6,13 @@
 Summary:	Wayland - protocol for a compositor to talk to its clients
 Summary(pl.UTF-8):	Wayland - protokół między serwerem składającym a klientami
 Name:		wayland
-Version:	1.21.0
-Release:	3
+Version:	1.22.0
+Release:	1
 License:	MIT
 Group:		Libraries
 #Source0Download: https://gitlab.freedesktop.org/wayland/wayland/-/releases/
 Source0:	https://gitlab.freedesktop.org/wayland/wayland/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
-# Source0-md5:	f2653a2293bcd882d756c6a83d278903
+# Source0-md5:	7410ab549e3928fce9381455b17b0803
 URL:		https://wayland.freedesktop.org/
 BuildRequires:	automake
 BuildRequires:	expat-devel >= 1.95
@@ -158,7 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING CONTRIBUTING.md README
+%doc COPYING CONTRIBUTING.md README.md
 %attr(755,root,root) %{_libdir}/libwayland-client.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libwayland-client.so.0
 %attr(755,root,root) %{_libdir}/libwayland-cursor.so.*.*.*
