@@ -28,7 +28,7 @@ BuildRequires:	doxygen >= 1.6.0
 BuildRequires:	graphviz >= 2.26.0
 BuildRequires:	libxslt-progs
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xmlto
 BuildRequires:	xz
@@ -131,16 +131,16 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	%{!?with_apidocs:-Ddocumentation=false} \
 	%{!?with_static_libs:--default-library=shared}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with apidocs}
 # packaged as %doc in -devel
