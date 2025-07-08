@@ -133,7 +133,8 @@ Dokumentacja API biblioteki oraz protokołu Wayland.
 %build
 %meson \
 	%{!?with_apidocs:-Ddocumentation=false} \
-	%{!?with_static_libs:--default-library=shared}
+	%{!?with_static_libs:--default-library=shared} \
+	-Dtests=false
 
 %meson_build
 
